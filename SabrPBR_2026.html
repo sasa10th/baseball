@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SabrPBR 2026</title>
+        <style>
+            body {
+                margin: 0;
+            }
+
+            .banner {
+                color: white;
+                text-decoration: none;
+                align-items: center;
+                justify-content: space-between;
+                width: 720px;
+                height: 90px;
+                padding: 0 30px;
+                background: #050505;
+                display: flex;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+
+            .banner h1 {
+                font-size: 24px;
+                text-align: left;
+                margin: 0;
+                flex-shrink: 0;
+                white-space: nowrap;
+                background: linear-gradient(90deg, #aaa 0%, #fff 10%, #aaa 20%);
+                background-size: 200% auto;
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                animation: glow 3s linear infinite;
+            }
+
+            @keyframes glow {
+                0% { background-position: 100% 0; }
+                100% { background-position: -100% 0; }
+            }
+
+            .banner p {
+                color: #aaa;
+                text-align: right;
+            }
+            
+            .start {
+                top: 120px;
+                left: 8px;
+                position: absolute;
+            }
+
+            .codeblock {
+                font-family: monospace;
+                white-space: pre;
+                padding: 8px;
+                border: 1px solid black;
+            }
+        </style>
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+                }
+            };
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('pre code').forEach(el => {
+                    const lines = el.textContent.split('\n');
+                    const indent = lines
+                    .filter(l => l.trim())
+                    .map(l => l.match(/^\s*/)[0].length);
+                    const minIndent = Math.min(...indent);
+                    el.textContent = lines.map(l => l.slice(minIndent)).join('\n').trim();
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <a href="https://pbr2026.devs.kr" class="banner">
+            <h1>2026 Project Based Research</h1>
+            <p>Sejong Academy of<br>Science and Arts</p>
+        </a>
+        <div class="start">
+            <table width="600">
+                <tbody>
+                    <tr>
+                        <td>
+                            <h3>SabrPBR 2026</h3>
+                            <p>
+                                © 
+                                <a href="mailto:44highschooler@sasa.hs.kr">
+                                    2026PBR
+                                </a>
+                            </p>
+                            <hr>
+                            <p>
+                                <strong>참고문헌</strong>
+                                <blockquote style="border-left: 3px solid black; padding-left: 5px;"><a href="https://tangotiger.net/archives/stud0346.shtml" style="color: black; text-decoration: none;"><strong>Tango on Baseball</strong></a></blockquote>
+                            </p>
+                            <h2>§1. April 2, 2026</h2>
+                            <p>
+                                <strong>예측 타겟 방식</strong><br>
+                                <s>&#9312; Marcel 잔차 학습(Marcel + LSTM)</s><br>
+                                &emsp;Marcel이 이미 예측한 값을 베이스라인으로 두고, LSTM은 Marcel이 틀린 부분만 학습하는 구조.
+                                <pre><code class="plaintext">
+                                    실제 wOBA = 0.340
+                                    Marcel 예측 = 0.320
+                                    잔차 = +0.020  ← LSTM이 이걸 맞추려고 학습
+                                </code></pre>
+                                &emsp;데이터 적어도 됨, 학습 안정적, Marcel의 통계적 안정성 그대로 활용. 단, Marcel 계산을 먼저 해야 함, Marcel의 구조적 한계를 못 벗어남.<br><br>
+                                <s>&#9313; End-to-End LSTM</s><br>
+                                <pre><code class="plaintext">
+                                    [2019~2023 시즌 데이터] → LSTM → 2024 wOBA 직접 예측
+                                </code></pre>
+                                &emsp;Marcel 의존 없음, 더 복잡한 패턴 자유롭게 학습 가능. 데이터 많이 필요, 과적합 위험, 학습 불안정할 수 있음.<br><br>
+                                &#9314; Marcel 개선 → Marcel의 장점을 채용한 LSTM<br>
+                                &emsp;가중치, 나이 보정, <strong>신뢰 가능한 예측</strong> + 부상(갑작스러운 출전 경기 수의 변화를 기반으로 추정)
+                            </p>
+                            <p>&nbsp;</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
